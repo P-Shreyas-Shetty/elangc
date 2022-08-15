@@ -1,4 +1,4 @@
-#inlude "ast.hpp"
+#include "ast.hpp"
 
 enum class BaseTypeEnum {
   Int8,
