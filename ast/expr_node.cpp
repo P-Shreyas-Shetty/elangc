@@ -1,3 +1,6 @@
+#ifndef __EXPR_NODE_CPP__
+#define __EXPR_NODE_CPP__
+
 #include "ast.hpp"
 
 // ABSTRACT class for EXpressions
@@ -22,7 +25,20 @@
 //  FNCALL<Expr..>
 //  ALLOC<Expr>
 //
-class Expr : public ASTNode {};
+class Expr : public ast::ASTNode {};
+
+class UnaryNegExpr : Expr {
+public:
+  std::unique_ptr<Expr> in;
+
+  UnaryNegExpr(Expr in) { this->in = std::make_unique<Expr>(in); }
+
+  std::string to_string(int indent = 0) {
+    return std::string(indent, ' ') + "UnaryNeg {\n" +
+           this->in->to_string(indent + 1) + "\n" + std::string(indent, ' ') +
+           "}";
+  }
+};
 
 class AddExpr : Expr {
 public:
@@ -183,4 +199,149 @@ public:
            ",\n" + rhs->to_string(indent + 1) + "\n" + std::string(indent, ' ');
   }
 };
-c
+
+class AndExpr : Expr {
+public:
+  std::unique_ptr<Expr> lhs;
+  std::unique_ptr<Expr> rhs;
+
+  AndExpr(Expr lhs, Expr rhs) {
+    this->lhs = std::make_unique<Expr>(lhs);
+    this->rhs = std::make_unique<Expr>(rhs);
+  }
+
+  std::string to_string(int indent = 0) {
+    return std::string(indent, ' ') + "And { " + lhs->to_string(indent + 1) +
+           ",\n" + rhs->to_string(indent + 1) + "\n" + std::string(indent, ' ');
+  }
+};
+
+class OrExpr : Expr {
+public:
+  std::unique_ptr<Expr> lhs;
+  std::unique_ptr<Expr> rhs;
+
+  OrExpr(Expr lhs, Expr rhs) {
+    this->lhs = std::make_unique<Expr>(lhs);
+    this->rhs = std::make_unique<Expr>(rhs);
+  }
+
+  std::string to_string(int indent = 0) {
+    return std::string(indent, ' ') + "Or { " + lhs->to_string(indent + 1) +
+           ",\n" + rhs->to_string(indent + 1) + "\n" + std::string(indent, ' ');
+  }
+};
+
+class NotExpr : Expr {
+public:
+  std::unique_ptr<Expr> in;
+
+  NotExpr(Expr in) { this->in = std::make_unique<Expr>(in); }
+
+  std::string to_string(int indent = 0) {
+    return std::string(indent, ' ') + "Not {\n" +
+           this->in->to_string(indent + 1) + "\n" + std::string(indent, ' ') +
+           "}";
+  }
+};
+
+class BAndExpr : Expr {
+public:
+  std::unique_ptr<Expr> lhs;
+  std::unique_ptr<Expr> rhs;
+
+  BAndExpr(Expr lhs, Expr rhs) {
+    this->lhs = std::make_unique<Expr>(lhs);
+    this->rhs = std::make_unique<Expr>(rhs);
+  }
+
+  std::string to_string(int indent = 0) {
+    return std::string(indent, ' ') + "BAnd { " + lhs->to_string(indent + 1) +
+           ",\n" + rhs->to_string(indent + 1) + "\n" + std::string(indent, ' ');
+  }
+};
+
+class BOrExpr : Expr {
+public:
+  std::unique_ptr<Expr> lhs;
+  std::unique_ptr<Expr> rhs;
+
+  BOrExpr(Expr lhs, Expr rhs) {
+    this->lhs = std::make_unique<Expr>(lhs);
+    this->rhs = std::make_unique<Expr>(rhs);
+  }
+
+  std::string to_string(int indent = 0) {
+    return std::string(indent, ' ') + "BOr { " + lhs->to_string(indent + 1) +
+           ",\n" + rhs->to_string(indent + 1) + "\n" + std::string(indent, ' ');
+  }
+};
+
+class ComplExpr : Expr {
+public:
+  std::unique_ptr<Expr> in;
+
+  ComplExpr(Expr in) { this->in = std::make_unique<Expr>(in); }
+
+  std::string to_string(int indent = 0) {
+    return std::string(indent, ' ') + "Compl {\n" +
+           this->in->to_string(indent + 1) + "\n" + std::string(indent, ' ') +
+           "}";
+  }
+};
+
+class BXorExpr : Expr {
+public:
+  std::unique_ptr<Expr> lhs;
+  std::unique_ptr<Expr> rhs;
+
+  BXorExpr(Expr lhs, Expr rhs) {
+    this->lhs = std::make_unique<Expr>(lhs);
+    this->rhs = std::make_unique<Expr>(rhs);
+  }
+
+  std::string to_string(int indent = 0) {
+    return std::string(indent, ' ') + "BXor { " + lhs->to_string(indent + 1) +
+           ",\n" + rhs->to_string(indent + 1) + "\n" + std::string(indent, ' ');
+  }
+};
+
+class RShiftExpr : Expr {
+public:
+  std::unique_ptr<Expr> lhs;
+  std::unique_ptr<Expr> rhs;
+
+  RShiftExpr(Expr lhs, Expr rhs) {
+    this->lhs = std::make_unique<Expr>(lhs);
+    this->rhs = std::make_unique<Expr>(rhs);
+  }
+
+  std::string to_string(int indent = 0) {
+    return std::string(indent, ' ') + "RShift { " + lhs->to_string(indent + 1) +
+           ",\n" + rhs->to_string(indent + 1) + "\n" + std::string(indent, ' ');
+  }
+};
+
+class RShiftExpr : Expr {
+public:
+  std::unique_ptr<Expr> lhs;
+  std::unique_ptr<Expr> rhs;
+
+  RShiftExpr(Expr lhs, Expr rhs) {
+    this->lhs = std::make_unique<Expr>(lhs);
+    this->rhs = std::make_unique<Expr>(rhs);
+  }
+
+  std::string to_string(int indent = 0) {
+    return std::string(indent, ' ') + "RShift { " + lhs->to_string(indent + 1) +
+           ",\n" + rhs->to_string(indent + 1) + "\n" + std::string(indent, ' ');
+  }
+};
+
+class FnCallExpr : Expr {
+public:
+  std::vector<std::unique_ptr<Expr>> args;
+  std::weak_ptr<ast::FnNode> fn;
+};
+
+#endif //__EXPR_NODE_CPP__

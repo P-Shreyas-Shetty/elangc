@@ -1,4 +1,9 @@
+#ifndef __TYPES_CPP__
+#define __TYPES_CPP__
+
 #include "ast.hpp"
+
+constexpr size_t REF_SIZE = sizeof(int *);
 
 enum class BaseTypeEnum {
   Int8,
@@ -23,7 +28,7 @@ enum class BaseTypeEnum {
 enum class TypeClassVariant { BUILTIN, REF, OPTREF, ARRAY, STRUCT };
 
 // Abstract class for all Types
-class Type : public ASTNode {
+class Type : public ast::ASTNode {
 public:
   TypeClassVariant type;
   virtual size_t get_size();
@@ -185,4 +190,5 @@ public:
     return ret;
   }
 };
-c
+
+#endif //__TYPES_CPP__
