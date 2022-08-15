@@ -341,7 +341,8 @@ public:
 class FnCallExpr : Expr {
 public:
   std::vector<std::unique_ptr<Expr>> args;
-  std::weak_ptr<ast::FnNode> fn;
+  ast::FnNode *fn;
+  FnCallExpr(std::string name, std::vector<Expr> args) {}
 };
 
 #endif //__EXPR_NODE_CPP__
