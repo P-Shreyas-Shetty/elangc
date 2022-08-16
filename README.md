@@ -25,9 +25,38 @@ nref? {
 
 xref = nref? &x; //Null coalescing. If nref is non-null, then assign nref, else &x 
 
-
-
 let s = "Hello"; //string literal
+
+//if-else
+if x==0 {
+  print("x is 0");
+} 
+else if x==1 {
+  print("x is 1");
+} 
+else {
+  print("x is neither 1 nor 0");
+}
+
+//for loop
+//Only loop statement provided 
+//can skip any fields
+for let x=0; x<5; x=x+1 {
+  print("x={}", x);
+}
+
+//for loop with no end condition
+//also break & continue
+for let i=0; ; i=i+1 {
+  print("i={}", i);
+  if i==0 {
+    continue;
+  } else if i<5 {
+    print("i>0");
+  } else {
+    break;
+  }
+}
 
 //Heap allocation
 let h: &str = new "Hello"; //Heap allocation isdone with `new`
@@ -86,3 +115,4 @@ del sref; //frees heap & deletes sref variable
 - Garbage collection of some kind (mark & sweep, probably)
 - Trait system
 - Generics
+- (anonymous) Union types
