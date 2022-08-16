@@ -13,6 +13,19 @@ let y = 0; //type inference (atleast in simpler cases)
 let mut z: i32 = 42; //mutable variable
 
 let xref: &i32 = &x; //reference type
+@xref = 90;           //Haven't decided yet on dereference syntax
+
+let nref: ?i32 = null; //?i32 is a nullable reference
+@nref = 89; //Syntax error! cant feref a nullabel reference
+
+// TODO: Maybe this syntax will change. Maybe we'll add proper match
+nref? {
+  @nref = 89; //Null checked. Within this, nref acts like normal reference
+}
+
+xref = nref? &x; //Null coalescing. If nref is non-null, then assign nref, else &x 
+
+
 
 let s = "Hello"; //string literal
 
@@ -65,3 +78,11 @@ let sref: &mut Triple = new Triple {x:3, y:2, z:4};
 sref.set_x(9); //Method call
 
 del sref; //frees heap & deletes sref variable
+
+```
+
+## Stretch goals
+
+- Garbage collection of some kind (mark & sweep, probably)
+- Trait system
+- Generics
