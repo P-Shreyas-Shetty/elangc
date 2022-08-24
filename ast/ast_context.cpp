@@ -6,7 +6,17 @@ class Context {
 public:
   std::unordered_map<std::string, std::shared_ptr<ast::FnNode>> functions;
   std::unordered_map<std::string, std::shared_ptr<ast::VarNode>> variables;
-  std::optional<std::shared_ptr<Context>> parent_ctx;
+  std::shared_ptr<Context> parent_ctx;
+  bool has_parent_ctx;
+
+  Context(std::shared_ptr<Context> parent_ctx) {
+    this->parent_ctx = parent_ctx;
+    this->has_parent_ctx = true;
+  }
+
+  Context() {
+    this->has_parent_ctx = false;
+  }
 
   std::shared_ptr<ast::FnNode> get_fn(std::string name) {
     auto fn_iter{functions.find(name)};
@@ -15,10 +25,10 @@ public:
       auto fn{fn_iter->second};
       return fn;
     } else {
-      if (parent_ctx.has_value()) {
-        return parent_ctx.value()->get_fn(name);
+      if (has_parent_ctx) {
+        return parent_ctx->get_fn(name);
       } else {
-        throw new ast::CompilerError("");
+        throw  ast::CompilerError("Error");
       }
     }
   }

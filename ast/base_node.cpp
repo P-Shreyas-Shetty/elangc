@@ -9,11 +9,14 @@ public:
   virtual std::string to_string(size_t indent = 0);
 };
 
-class CompilerError : public std::runtime_error {
-  std::string what_message;
+class CompilerError  {
+	public:
+  std::string msg;
 
-public:
-  const char *what() { return what_message.c_str(); }
+  CompilerError(std::string msg) {
+    this->msg = msg;
+  }
+       
 };
 
 #endif //__BASE_NODE_CPP__
