@@ -15,5 +15,6 @@ namespace ast {
 #include "function_node.cpp"
 #include "types.cpp"
 #include "var_node.cpp"
+#include "val_node.cpp"
 } // namespace ast
 #endif // __AST_HPP__
